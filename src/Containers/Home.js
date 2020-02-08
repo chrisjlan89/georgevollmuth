@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assets/kiY0cf8W_400x400.jpeg";
+import sssh from "../assets/4322048679713255248.jpg";
+import bg from "../assets/171872_star-wars-star-backgrounds.jpg";
 import themesong from "../assets/Star Wars Theme Song By John Williams.mp3";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
@@ -10,6 +12,29 @@ const ButtonStyles = styled.button`
   padding: 10px;
   border-radius: 5px;
   font-size: 12px;
+`;
+
+const fadein = keyframes`
+   0% {
+      transform:  scale(0);
+      opacity: 0
+    }
+
+    25% {
+        transform:  scale(1.2);
+      opacity: 1
+    }
+
+    50% {
+        transform:  scale(1.4);
+      opacity: 1
+    }
+
+    100% {
+      transform:  scale(1);
+      opacity: 1
+    }
+
 `;
 
 const EnterButtonStyles = styled.button`
@@ -99,6 +124,7 @@ const slowlygrow = keyframes`
   }
 
 `;
+
 const StyledApp = styled.div`
   .App {
     text-align: center;
@@ -145,6 +171,7 @@ const StarWarsStyles = styled.div`
   width: 100%;
   height: 100vh;
   background: #000;
+  background-image: url(${bg});
   overflow: hidden;
 
   .fade {
@@ -153,6 +180,7 @@ const StarWarsStyles = styled.div`
     min-height: 60vh;
     top: -25px;
     background-image: linear-gradient(0deg, transparent, black 75%);
+
     z-index: 1;
   }
 
@@ -175,7 +203,7 @@ const StarWarsStyles = styled.div`
     position: relative;
     top: 9999px;
     transform-origin: 50% 100%;
-    animation: crawl 60s linear;
+    animation: crawl 70s linear;
   }
 
   .crawl > .title {
@@ -206,20 +234,47 @@ const StarWarsStyles = styled.div`
     justify-content: center;
     flex-direction: column;
   }
+
+  .enter-final {
+    animation: ${fadein} 6s linear;
+  }
+
+  .outro {
+    display: flex;
+    justify-content: center;
+  }
+
+  .shh-george {
+    width: 30%;
+    display: flex;
+    align-self: center;
+  }
 `;
 
 export const Home = () => {
   const [animationDone, setAnimationDone] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setAnimationDone(true);
-    }, 53000);
+    }, 70000);
   }, []);
+
+  useEffect(() => {
+    if (animationDone) {
+      setFadeIn(true);
+    }
+  }, [animationDone]);
 
   const onSkip = () => {
     clearTimeout();
 
     setAnimationDone(true);
+  };
+
+  const onReload = () => {
+    clearTimeout();
+    setAnimationDone(false);
   };
   return !animationDone ? (
     <StarWarsStyles>
@@ -227,38 +282,52 @@ export const Home = () => {
       <audio autoPlay={!animationDone}>
         <source src={themesong} type="audio/ogg" />
       </audio>
-      <section class="star-wars">
-        <div class="crawl">
-          <div class="title">
+      <section className="star-wars">
+        <div className="crawl">
+          <div className="title">
             <p>Episode IV</p>
-            <h1>A New Hope</h1>
+            <h1>A New Costo Reset</h1>
             <img src={logo} className="App-logo" alt="logo" />
           </div>
 
           <p>
-            It is a period of civil war. Rebel spaceships, striking from a
-            hidden base, have won their first victory against the evil Galactic
-            Empire.
+            It is a period of unrest for the youngish George Vollmuth he has
+            exhausted himself beyond recovery but his manger expects him to
+            build a SECTIONAL!
           </p>
           <p>
-            During the battle, Rebel spies managed to steal secret plans to the
-            Empire’s ultimate weapon, the DEATH STAR, an armored space station
-            with enough power to destroy an entire planet.
+            The battle is long and taxing, but George prevails. With his manager
+            on her heels, she gains further ground on George by having him move
+            melons. Pushed to the brink of collapse, hope seems all but lost for
+            our hero.
           </p>
           <p>
-            Pursued by the Empire’s sinister agents, Princess Leia races home
-            aboard her starship, custodian of the stolen plans that can save her
-            people and restore freedom to the galaxy…
+            Against all odds he emerges victorius yet battered. George jumps in
+            his 2008 Ford Fusion to race home and escape the Evil Costco and
+            deliver the car to EMMA and to regroup with CHARLIE who doesnt
+            really like him very much anyway.
           </p>
+          <p>
+            Thanks to the efforts of the Rebels, George can have a fun night
+            watching the Devils lose and play Fortnite or Apex. The long awaited
+            Disney trip is now upon him as he tries to avoid the evil cosnt
+          </p>
+          <div className="outro">
+            <img src={sssh} className="shh-george" alt="logo" />
+          </div>
         </div>
       </section>
     </StarWarsStyles>
   ) : (
-    <StarWarsStyles>
+    <StarWarsStyles className={!fadeIn ? "d" : "enter-final"}>
       <div className="enter">
+        <div className="enter-final">
+          <img src={logo} />
+        </div>
         <EnterButtonStyles>
           <Link to="/enter"> Enter</Link>
         </EnterButtonStyles>
+        <ButtonStyles onClick={onReload}>Reload</ButtonStyles>
       </div>
     </StarWarsStyles>
   );
