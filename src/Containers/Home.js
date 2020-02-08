@@ -191,9 +191,9 @@ const StarWarsStyles = styled.div`
     height: 800px;
     color: #feda4a;
     font-family: "Pathway Gothic One", sans-serif;
-    font-size: 500%;
+    font-size: 10vh;
     font-weight: 600;
-    letter-spacing: 6px;
+    letter-spacing: 2px;
     line-height: 150%;
     perspective: 400px;
     text-align: justify;
@@ -310,7 +310,7 @@ export const Home = () => {
           <p>
             Thanks to the efforts of the Rebels, George can have a fun night
             watching the Devils lose and play Fortnite or Apex. The long awaited
-            Disney trip is now upon him as he tries to avoid the evil cosnt
+            Disney trip is now upon him as he tries to avoid the evil costco
           </p>
           <div className="outro">
             <img src={sssh} className="shh-george" alt="logo" />
